@@ -15,4 +15,20 @@ const sendErrorResponse = (res, statusCode, errorMessage, err = null) => {
     });
 }
 
-module.exports = { sendErrorResponse };
+/**
+ * 
+ * @param {Response} res 
+ * @param {Number} statusCode 
+ * @param {String} successMessage 
+ * @param {Objet} data 
+ * @returns {Response} Returns HTTP response
+ */
+const sendApiResponse = (res, statusCode, successMessage, data) => {
+    return res.status(statusCode).json({
+        message: successMessage,
+        err: null,
+        data: data
+    });
+}
+
+module.exports = { sendErrorResponse, sendApiResponse };
