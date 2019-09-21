@@ -30,7 +30,13 @@ class AuthController {
                     // Creating user
                     const user = await UserModel.create({ first_name, last_name, email, password });
                     // Send response if user successfully created
-                    sendApiResponse(res, 200, 'User successfully created', { user });
+                    sendApiResponse(res, 200, 'User successfully created', { 
+                        user: {
+                            first_name: user.first_name,
+                            last_name: user.last_name,
+                            email: user.email
+                        }, 
+                    });
                 } catch(error) {
                     sendErrorResponse(res, 500, 'An error occured during user register', { error });
                 }
@@ -60,7 +66,11 @@ class AuthController {
                 // If password is not valid
                 if(!validPassword) sendErrorResponse(res, 401, 'Password is incorrect');
                 else sendApiResponse(res, 200, 'User successfully logged-in', {
-                    user,
+                    user: {
+                        first_name: user.first_name,
+                        last_name: user.last_name,
+                        email: user.email
+                    },
                     token: user.generateJwt()
                 });
             }
