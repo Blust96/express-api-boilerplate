@@ -16,6 +16,7 @@ const sendErrorResponse = (res, statusCode, errorMessage, err = null) => {
 }
 
 /**
+ * Send api success response
  * 
  * @param {Response} res 
  * @param {Number} statusCode 
