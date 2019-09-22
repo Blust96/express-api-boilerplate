@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const passport = require('passport');
 
-const { Mandatories, checkBody } = require('../middlewares/bodyChecker');
+const { Mandatories, checkRequiredFields, checkExtraFields } = require('../middlewares/bodyChecker');
 const { setAuthentication } = require('../middlewares/authentication');
 setAuthentication(passport);
 
@@ -17,7 +17,7 @@ usersRouter.get('/', passport.authenticate('jwt', { session: false }), controlle
 usersRouter.get('/:id', passport.authenticate('jwt', { session: false }), controller.getById);
 
 // Update by ID
-usersRouter.patch('/:id', passport.authenticate('jwt', { session: false }), controller.updateById);
+usersRouter.patch('/:id', [passport.authenticate('jwt', { session: false }), checkExtraFields(Mandatories.users.update)], controller.updateById);
 
 // Delete by ID
 usersRouter.delete('/:id', passport.authenticate('jwt', { session: false }), controller.deleteById);
