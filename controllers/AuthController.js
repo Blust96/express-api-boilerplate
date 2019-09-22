@@ -32,6 +32,7 @@ class AuthController {
                     // Send response if user successfully created
                     sendApiResponse(res, 200, 'User successfully created', { 
                         user: {
+                            id: user._id,
                             first_name: user.first_name,
                             last_name: user.last_name,
                             email: user.email
@@ -67,6 +68,7 @@ class AuthController {
                 if(!validPassword) sendErrorResponse(res, 401, 'Password is incorrect');
                 else sendApiResponse(res, 200, 'User successfully logged-in', {
                     user: {
+                        id: user._id,
                         first_name: user.first_name,
                         last_name: user.last_name,
                         email: user.email
