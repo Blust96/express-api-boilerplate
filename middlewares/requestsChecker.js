@@ -2,7 +2,7 @@ const { sendErrorResponse } = require('../services/apiResponses');
 
 /**
  * Request filters
- * Describe required fields for each route
+ * Filters request and response fields for each routes
  */
 const Filters = {
     auth: {
