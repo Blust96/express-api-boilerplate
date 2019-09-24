@@ -1,16 +1,24 @@
 const { Router } = require('express');
 
-const { Mandatories, checkRequiredFields } = require('../middlewares/bodyChecker');
+const { Filters, checkRequiredFields } = require('../middlewares/requestsChecker');
 
 const AuthController = require('../controllers/AuthController');
 const controller = new AuthController();
 
 const authRouter = Router();
 
-// Login route
-authRouter.post('/login', checkRequiredFields(Mandatories.auth.login), controller.login);
+/**
+ * @desc User login
+ * @route POST api/auth/login
+ * @access Public
+ */
+authRouter.post('/login', checkRequiredFields(Filters.auth.login), controller.login);
 
-// Register route
-authRouter.post('/register', checkRequiredFields(Mandatories.auth.register), controller.register);
+/**
+ * @desc User register
+ * @route POST api/auth/register
+ * @access Public
+ */
+authRouter.post('/register', checkRequiredFields(Filters.auth.register), controller.register);
 
 module.exports = authRouter;

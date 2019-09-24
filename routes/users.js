@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const passport = require('passport');
 
-const { Mandatories, checkRequiredFields, checkExtraFields } = require('../middlewares/bodyChecker');
+const { Filters, checkRequiredFields, checkExtraFields } = require('../middlewares/requestsChecker');
 const { setAuthentication } = require('../middlewares/authentication');
 setAuthentication(passport);
 
@@ -10,16 +10,32 @@ const controller = new UsersController();
 
 const usersRouter = Router();
 
-// Get all
-usersRouter.get('/', passport.authenticate('jwt', { session: false }), controller.getAll);
+/**
+ * @route GET api/protected/users
+ * @desc Get all users
+ * @access Public
+ */
+usersRouter.get('/', controller.getAll);
 
-// Get by ID
-usersRouter.get('/:id', passport.authenticate('jwt', { session: false }), controller.getById);
+/**
+ * @route GET api/protected/users/:id
+ * @desc Get user by id
+ * @access Public
+ */
+usersRouter.get('/:id', controller.getById);
 
-// Update by ID
-usersRouter.patch('/:id', [passport.authenticate('jwt', { session: false }), checkExtraFields(Mandatories.users.update)], controller.updateById);
+/**
+ * @route PUT api/protected/users/:id
+ * @desc Update user by id
+ * @access Private
+ */
+usersRouter.put('/:id', [passport.authenticate('jwt', { session: false }), checkExtraFields(Filters.users.update)], controller.updateById);
 
-// Delete by ID
+/**
+ * @route DELETE api/protected/users/:id
+ * @desc Delete user by id
+ * @access Private
+ */
 usersRouter.delete('/:id', passport.authenticate('jwt', { session: false }), controller.deleteById);
 
 module.exports = usersRouter;
