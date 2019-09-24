@@ -1,20 +1,6 @@
 const { sendErrorResponse } = require('../services/apiResponses');
 
 /**
- * Request filters
- * Filters request and response fields for each routes
- */
-const Filters = {
-    auth: {
-        register: ['first_name', 'last_name', 'email', 'password'],
-        login: ['email', 'password'],
-    },
-    users: {
-        update: ['first_name', 'last_name', 'email']
-    }
-}
-
-/**
  * Check if body fields are missing according to filters
  * 
  * @param {Object} filters
@@ -72,4 +58,4 @@ const checkExtraFields = filters => {
 
 }
 
-module.exports = { Filters, checkRequiredFields, checkExtraFields }
+module.exports = { checkRequiredFields, checkExtraFields }
