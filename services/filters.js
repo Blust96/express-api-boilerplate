@@ -3,12 +3,19 @@
  * Filters request and response fields for each routes
  */
 const Filters = {
-    auth: {
-        register: ['first_name', 'last_name', 'email', 'password'],
-        login: ['email', 'password'],
+    // Request mandatory|optional fields
+    requests: {
+        auth: {
+            register: ['first_name', 'last_name', 'email', 'password'],
+            login: ['email', 'password'],
+        },
+        users: {
+            update: ['first_name', 'last_name', 'email'],
+        }
     },
-    users: {
-        update: ['first_name', 'last_name', 'email']
+    // Response returned fields
+    responses: {
+        users: ['_id', 'first_name', 'last_name', 'email'],
     }
 }
 
