@@ -1,13 +1,62 @@
-const { sendErrorResponse, sendApiResponse } = require('../services/apiResponses');
+const { ResponseMessages, sendErrorResponse, sendApiResponse } = require('../services/apiResponses');
+const { cleanDoc, cleanDocsList } = require('../services/docCleaner');
 
 class MainController {
 
     constructor(model) {
         this.model = model;
+        this.create = this.create.bind(this);
+        this.rejectOrCreate = this.rejectOrCreate.bind(this);
         this.getAll = this.getAll.bind(this);
         this.getById = this.getById.bind(this);
         this.updateById = this.updateById.bind(this);
         this.deleteById = this.deleteById.bind(this);
+    }
+
+    /**
+     * Post a new document
+     * 
+     * @param {Request} req
+     * @param {Response} res
+     */
+    async create(req, res, resFilters) {
+
+        try {
+            // Creating document
+            const doc = await this.model.create(req.body);
+            // Send response if doc successfully created
+            sendApiResponse(res, 200, ResponseMessages.success.main.create, { data: cleanDoc(resFilters, doc) });
+        } catch(error) {
+            sendErrorResponse(res, 500, ResponseMessages.error.main.internal, { error });
+        }
+        
+    }
+
+    /**
+     * Create a new document if doesn't exist
+     * 
+     * @param {Request} req 
+     * @param {Response} res 
+     */
+    async rejectOrCreate(req, res, resFilters, options) {
+
+        this.model.findOne(options, async (error, doc) => {
+            // If error occurs
+            if(error) sendErrorResponse(res, 500, ResponseMessages.error.main.internal, { error });
+            // If doc already exists
+            if(doc) sendErrorResponse(res, 409, ResponseMessages.error.main.conflict);
+            else {
+                try {
+                    // Creating document
+                    const doc = await this.model.create(req.body);
+                    // Send response if doc successfully created
+                    sendApiResponse(res, 200, ResponseMessages.success.main.create, { data: cleanDoc(resFilters, doc) });
+                } catch(error) {
+                    sendErrorResponse(res, 500, ResponseMessages.error.main.internal, { error });
+                }
+            }
+        });
+
     }
 
     /**
@@ -16,15 +65,15 @@ class MainController {
      * @param {Request} req 
      * @param {Response} res 
      */
-    async getAll(req, res) {
+    async getAll(req, res, resFilters) {
 
-        this.model.find({}, (error, items) => {
+        this.model.find({}, (error, docs) => {
             // If error occurs
-            if(error) sendErrorResponse(res, 500, 'An error occured while getting resources', { error });
-            // If items not found
-            if(!items) sendErrorResponse(res, 404, 'Resources not found');
+            if(error) sendErrorResponse(res, 500, ResponseMessages.error.main.internal, { error });
+            // If docs not found
+            if(!docs) sendErrorResponse(res, 404, ResponseMessages.error.main.notFound);
             // Send response
-            else sendApiResponse(res, 200, 'Data successfully received', { items });
+            else sendApiResponse(res, 200, ResponseMessages.success.main.get, { data: cleanDocsList(resFilters, docs) });
         });
 
     }
@@ -32,18 +81,18 @@ class MainController {
     /**
      * Get by ID
      * 
-     * @param {Request} req 
-     * @param {Response} res 
+     * @param {Request} req
+     * @param {Response} res
      */
-    async getById(req, res) {
+    async getById(req, res, resFilters) {
 
-        this.model.findById(req.params.id, (error, item) => {
+        this.model.findById(req.params.id, (error, doc) => {
             // If error occurs
-            if(error) sendErrorResponse(res, 500, 'An error occured while getting resource', { error });
-            // If items not found
-            if(!item) sendErrorResponse(res, 404, 'Resource not found');
+            if(error) sendErrorResponse(res, 500, ResponseMessages.error.main.internal, { error });
+            // If doc not found
+            if(!doc) sendErrorResponse(res, 404, ResponseMessages.error.main.notFound);
             // Send response
-            else sendApiResponse(res, 200, 'Data successfully received', { item });
+            else sendApiResponse(res, 200, ResponseMessages.success.main.get, { data: cleanDoc(resFilters, doc) });
         });
 
     }
@@ -54,15 +103,15 @@ class MainController {
      * @param {Request} req 
      * @param {Response} res 
      */
-    async updateById(req, res) {
+    async updateById(req, res, resFilters) {
 
-        this.model.findOneAndUpdate({ _id: req.params.id }, req.body, { 'new': true }, (error, item) => {
+        this.model.findOneAndUpdate({ _id: req.params.id }, req.body, { 'new': true }, (error, doc) => {
             // If error occurs
-            if(error) sendErrorResponse(res, 500, 'An error occured while updating resource', { error });
-            // If items not found
-            if(!item) sendErrorResponse(res, 404, 'Resource not found');
+            if(error) sendErrorResponse(res, 500, ResponseMessages.error.main.internal, { error });
+            // If doc not found
+            if(!doc) sendErrorResponse(res, 404, ResponseMessages.error.main.notFound);
             // Send response
-            else sendApiResponse(res, 200, 'Data successfully updated', { item });
+            else sendApiResponse(res, 200, ResponseMessages.success.main.update, { data: cleanDoc(resFilters, doc) });
         });
 
     }
@@ -73,15 +122,15 @@ class MainController {
      * @param {Request} req 
      * @param {Response} res 
      */
-    async deleteById(req, res) {
+    async deleteById(req, res, resFilters) {
 
-        this.model.findOneAndDelete({ _id: req.params.id }, (error, item) => {
+        this.model.findOneAndDelete({ _id: req.params.id }, (error, doc) => {
             // If error occurs
-            if(error) sendErrorResponse(res, 500, 'An error occured while deleting resource', { error });
-            // If items not found
-            if(!item) sendErrorResponse(res, 404, 'Resource not found');
+            if(error) sendErrorResponse(res, 500, ResponseMessages.error.main.internal, { error });
+            // If doc not found
+            if(!doc) sendErrorResponse(res, 404, ResponseMessages.error.main.notFound);
             // Send response
-            else sendApiResponse(res, 200, 'Data successfully deleted', { item });
+            else sendApiResponse(res, 200, ResponseMessages.success.main.delete, { data: cleanDoc(resFilters, doc) });
         });
 
     }
