@@ -1,4 +1,36 @@
 /**
+ * List all api response messages
+ * TODO: Create generic function handling model name and request type
+ */
+const ResponseMessages = {
+    // Error messages
+    error: {
+        main: {
+            internal: 'An internal error occured',
+            notFound: 'Resource not found',
+            conflict: 'Resource already exists',
+        },
+        auth: {
+            wrongEmail: 'Email does not exist, please try an other one',
+            wrongPassword: 'Wrong password, please try an other one',
+            token: 'User no longer exists for this token', // Check if JWT is still active
+        }
+    },
+    // Success messages
+    success: {
+        main: {
+            create: 'Resource successfully created',
+            get: 'Resource successfully received',
+            update: 'Resource successfully updated',
+            delete: 'Resource successfully deleted',
+        },
+        auth: {
+            login: 'Successfully logged-in !',
+        }
+    }
+}
+
+/**
  * Send body error response (empty or wrong fields)
  * 
  * @param {Response} res 
@@ -32,4 +64,4 @@ const sendApiResponse = (res, statusCode, successMessage, data) => {
     });
 }
 
-module.exports = { sendErrorResponse, sendApiResponse };
+module.exports = { ResponseMessages, sendErrorResponse, sendApiResponse };
