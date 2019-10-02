@@ -25,7 +25,7 @@ class MainController {
             // Creating document
             const doc = await this.model.create(req.body);
             // Send response if doc successfully created
-            sendApiResponse(res, 200, ResponseMessages.success.main.create, { data: cleanDoc(resFilters, doc) });
+            sendApiResponse(res, 200, ResponseMessages.success.main.create, cleanDoc(resFilters, doc));
         } catch(error) {
             sendErrorResponse(res, 500, ResponseMessages.error.main.internal, { error });
         }
@@ -50,7 +50,7 @@ class MainController {
                     // Creating document
                     const doc = await this.model.create(req.body);
                     // Send response if doc successfully created
-                    sendApiResponse(res, 200, ResponseMessages.success.main.create, { data: cleanDoc(resFilters, doc) });
+                    sendApiResponse(res, 200, ResponseMessages.success.main.create, cleanDoc(resFilters, doc));
                 } catch(error) {
                     sendErrorResponse(res, 500, ResponseMessages.error.main.internal, { error });
                 }
@@ -73,7 +73,7 @@ class MainController {
             // If docs not found
             if(!docs) sendErrorResponse(res, 404, ResponseMessages.error.main.notFound);
             // Send response
-            else sendApiResponse(res, 200, ResponseMessages.success.main.get, { data: cleanDocsList(resFilters, docs) });
+            else sendApiResponse(res, 200, ResponseMessages.success.main.get, cleanDocsList(resFilters, docs));
         });
 
     }
@@ -92,7 +92,7 @@ class MainController {
             // If doc not found
             if(!doc) sendErrorResponse(res, 404, ResponseMessages.error.main.notFound);
             // Send response
-            else sendApiResponse(res, 200, ResponseMessages.success.main.get, { data: cleanDoc(resFilters, doc) });
+            else sendApiResponse(res, 200, ResponseMessages.success.main.get, cleanDoc(resFilters, doc));
         });
 
     }
@@ -111,7 +111,7 @@ class MainController {
             // If doc not found
             if(!doc) sendErrorResponse(res, 404, ResponseMessages.error.main.notFound);
             // Send response
-            else sendApiResponse(res, 200, ResponseMessages.success.main.update, { data: cleanDoc(resFilters, doc) });
+            else sendApiResponse(res, 200, ResponseMessages.success.main.update, cleanDoc(resFilters, doc));
         });
 
     }
@@ -130,7 +130,7 @@ class MainController {
             // If doc not found
             if(!doc) sendErrorResponse(res, 404, ResponseMessages.error.main.notFound);
             // Send response
-            else sendApiResponse(res, 200, ResponseMessages.success.main.delete, { data: cleanDoc(resFilters, doc) });
+            else sendApiResponse(res, 200, ResponseMessages.success.main.delete, cleanDoc(resFilters, doc));
         });
 
     }
