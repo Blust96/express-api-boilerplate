@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const rateLimit = require('express-rate-limit');
 const isProduction = process.env.NODE_ENV === 'production';
 
 /**
@@ -24,4 +25,17 @@ const dbInit = () => {
 
 }
 
-module.exports = { dbInit }
+/**
+ * Config the API rate limit
+ * 
+ * @returns {Function} Returns rateLimit() function
+ */
+const apiLimiter = rateLimit({ 
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100 // 100 requests
+});
+
+// Defines cors origin on server's domain when it's in production
+const corsOrigin = { origin: isProduction ? 'https://www.example.com' : '*' }
+
+module.exports = { dbInit, apiLimiter, corsOrigin }
