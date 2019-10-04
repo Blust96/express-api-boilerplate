@@ -1,6 +1,6 @@
 # Express API Boilerplate
 
-This boilerplate creates a REST API project based on NodeJS, Express and MongoDB. It handles JWT authentication based on passport, checking JWT in cookies.
+This boilerplate creates a REST API project based on NodeJS, Express and MongoDB. It handles JWT authentication based on [passport](http://www.passportjs.org/), checking JWT from client request's cookies.
 
 ## Getting Started
 
@@ -9,14 +9,14 @@ Get started by cloning this project within the folder you want.
 
 ### Prerequisites
 
-This project is using nodemon which enable server's hotreload on file changes.
+This project is using [nodemon](https://www.npmjs.com/package/nodemon) which enable server's hotreload on file changes.
 You can install it by running the command:
 
 ```
 npm install -g nodemon
 ```
 
-Rename **.sample.env** to **.env** and fill the fields with your options
+Rename `.sample.env` to `.env` and fill the fields with your options
 
 ```
 # SERVER PORT
@@ -47,13 +47,13 @@ Install dependencies
 npm install
 ```
 
-Run the server (an npm script is defined to run the server with nodemon)
+Run the server (an npm script is defined to run the server with [nodemon](https://www.npmjs.com/package/nodemon))
 
 ```
 npm start
 ```
 
-The server should be running on the defined port in the **.env** file ! :+1:
+The server should be running on the defined port in the `.env` file ! :+1:
 
 ## Deployment
 
