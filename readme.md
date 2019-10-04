@@ -71,7 +71,7 @@ Feel free to check this [tutorial](https://www.taniarascia.com/node-express-post
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License - see the [LICENSE.md](https://gitlab.com/Bohain/express-api-boilerplate/blob/master/LICENSE.md) file for details
 
 ## Acknowledgments
 
