@@ -1,74 +1,73 @@
 # Express API Boilerplate
 
-This boilerplate creates a REST API project based on NodeJS, Express and MongoDB. It handles JWT authentication and generic REST operations.
+This boilerplate creates a REST API project based on NodeJS, Express and MongoDB. It handles JWT authentication based on passport, checking JWT in cookies.
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+Get started by cloning this project within the folder you want.
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
+This project is using nodemon which enable server's hotreload on file changes.
+You can install it by running the command:
 
 ```
-Give examples
+npm install -g nodemon
 ```
 
-### Installing
-
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
+Rename **.sample.env** to **.env** and fill the fields with your options
 
 ```
-Give the example
+# SERVER PORT
+PORT=server_port
+
+# MongoDB
+DB_DATABASE=database_name
+DB_USER=database_user
+DB_PASSWORD=database_password
+DB_HOST=database_host
+DB_PORT=database_port
+
+# JWT SECRET
+JWT_SECRET=your_jwt_secret
+
+# COOKIES
+COOKIE_NAME=your_cookie_name
+COOKIE_SECRET=your_cookie_secret
 ```
 
-And repeat
+### Run the server
+
+Follow the different step to get a development env running:
+
+Install dependencies
 
 ```
-until finished
+npm install
 ```
 
-End with an example of getting some data out of the system or using it for a little demo
-
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
+Run the server (an npm script is defined to run the server with nodemon)
 
 ```
-Give an example
+npm start
 ```
 
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
+The server should be running on the defined port in the **.env** file ! :+1:
 
 ## Deployment
 
-Add additional notes about how to deploy this on a live system
+Feel free to check this [tutorial](https://www.taniarascia.com/node-express-postgresql-heroku/) made by [taniarascia](https://github.com/taniarascia) who wrote a great article about Heroku App deployment.
 
 ## Built With
 
 * [Express](https://expressjs.com) - The web framework used
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
+* [MondoDB](https://www.mongodb.com/) - Document database
+* [Passport](http://www.passportjs.org/) - Authentication service for NodeJS
 
 ## Authors
 
 * **Quentin Bohain** - *Initial work* - [Blust96](https://gitlab.com/Bohain)
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
 
 ## License
 
@@ -76,6 +75,7 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
+I got inspired from olders project and those articles/repos:
+* [Create and Deploy a Node.js, Express, & PostgreSQL REST API to Heroku](https://www.taniarascia.com/node-express-postgresql-heroku/)
+* [Social network built with the MERN stack](https://github.com/bradtraversy/devconnector)
+* [TypeScript Rest API with Express.js, JWT, Authorization Roles and TypeORM](https://medium.com/javascript-in-plain-english/creating-a-rest-api-with-jwt-authentication-and-role-based-authorization-using-typescript-fbfa3cab22a4)
