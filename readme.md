@@ -55,6 +55,53 @@ npm start
 
 The server should be running on the defined port in the `.env` file ! :+1:
 
+## Models
+
+### User
+
+* first_name
+* last_name
+* email
+* password
+
+## Routes
+
+### Auth
+
+```
+// User register
+// Public
+POST api/auth/register
+
+// User login
+// Public
+POST api/auth/login
+
+// User login by token
+// Private
+POST api/auth/login/token
+```
+
+### Users
+
+```
+// Get all users
+// Public
+GET api/users
+
+// Get user by id
+// Public
+GET api/users/:id
+
+// Update user by id
+// Private
+PUT api/users/:id
+
+// Delete user by id
+// Private
+DELETE api/users/:id
+```
+
 ## Deployment
 
 Feel free to check this [tutorial](https://www.taniarascia.com/node-express-postgresql-heroku/) made by [taniarascia](https://github.com/taniarascia) who wrote a great article about Heroku App deployment.
